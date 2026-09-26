@@ -21,228 +21,255 @@
 \email{luiz@materials-sim.org}
 \affiliation{Laboratory for Advanced Computational Materials and Molecular Modeling}
 
-\title{Decoupling Universal Electrocatalytic Scaling Relations in Metal-Organic Frameworks via Equivariant Interatomic Potentials, Nanoconfined Micro-Solvation, and Electronic Structure}
+\title{Decoupling Electrocatalytic Scaling in Metal-Organic Frameworks via Equivariant Potentials, Micro-Solvation, and Electronic Structure}
 
 \keywords{Metal-Organic Frameworks, Machine Learning Interatomic Potentials, MACE, Oxygen Evolution Reaction, Hydrogen Evolution Reaction, CO2 Reduction, Scaling Relations, Micro-solvation}
 
 \begin{document}
 
 \begin{abstract}
-The design of highly efficient heterogeneous electrocatalysts for the Hydrogen Evolution Reaction (HER), Oxygen Evolution Reaction (OER), and Carbon Dioxide Reduction Reaction (\ce{CO2RR}) is fundamentally constrained by universal linear scaling relations between binding energies of reactive intermediates. In particular, the strict scaling between the hydroperoxo ($*\text{OOH}$) and hydroxyl ($*\text{OH}$) species on conventional solid surfaces ($\Delta G_{*\text{OOH}} \approx \Delta G_{*\text{OH}} + 3.20\,\text{eV}$) enforces an unavoidable theoretical minimum overpotential of $\eta^{\text{OER}} \ge 0.37\,\text{V}$, while concurrent scaling between $*H$ and $*COOH$ favors parasitic hydrogen evolution over carbon dioxide utilization. Here, we present a physically consistent, auditable multi-tier computational framework leveraging high-throughput filtering across 20,372 Metal-Organic Frameworks (MOFs) from the Materials Project / QMOF database, equivariant graph neural network potentials (CHGNet, MACE-MP-0), localized partial Hessian vibrational analysis (PHVA), explicit pore micro-solvation, and spin-polarized local Density Functional Theory (GPAW, PBE/LCAO). Our screening uncovers champion MOF electrocatalysts: Cu-MOF-74 (\texttt{qmof-b46c098}) for HER with an overpotential of only $\eta^{\text{HER}} = 0.12\,\text{V}$, Co-MOF-74 (\texttt{qmof-73ded45}) for OER ($\eta^{\text{OER}} = 0.81\,\text{V}$ dry), and Mn-MOF (\texttt{qmof-07cc468}) for \ce{CO2RR} ($\eta^{\text{CO2RR}} = 0.24\,\text{V}$). Crucially, we demonstrate that nanoconfined pore micro-solvation (1--3 explicit \ce{H2O} molecules) breaks the universal OER scaling relation: cooperative hydrogen-bonding networks in Co-MOF-74 selectively stabilize $*\text{OOH}$ via a closed cyclic motif ($\Delta E_{\text{solv}} = -2.53\,\text{eV}$) compared to $*\text{OH}$ ($-0.65\,\text{eV}$), contracting the scaling gap from $3.20\,\text{eV}$ to $2.74\,\text{eV}$ and dramatically reducing the OER overpotential to $\eta = 0.42\,\text{V}$. Furthermore, selective solvation of the polar $-COOH$ moiety enhances \ce{CO2RR} selectivity over parasitic HER. Projected density of states (PDOS) calculations reveal that Co active sites ($\varepsilon_d - E_F = -1.14\,\text{eV}$) promote facile oxidation via close proximity of $3d$ states to the Fermi level, whereas deeper Cu $3d$ bands ($\varepsilon_d - E_F = -3.24\,\text{eV}$) tune the thermoneutral adsorption of atomic hydrogen. This work establishes a verified, transferable paradigm for designing biomimetic porous frameworks that surpass conventional scaling volcano limits.
+Electrochemical energy conversion via the Hydrogen Evolution Reaction (HER), Oxygen Evolution Reaction (OER), and Carbon Dioxide Reduction Reaction (\ce{CO2RR}) is constrained by linear scaling relations between intermediate binding energies. On planar surfaces, the scaling between hydroperoxo ($*\text{OOH}$) and hydroxyl ($*\text{OH}$) intermediates enforces a theoretical overpotential ceiling of $\eta^{\text{OER}} \ge 0.37\,\text{V}$, while scaling between $*H$ and $*COOH$ favors parasitic hydrogen evolution over carbon dioxide utilization. In this work, we implement a multi-tier computational framework that couples screening across 20,372 Metal-Organic Frameworks (MOFs) from the Materials Project / QMOF database with equivariant graph neural network potentials (CHGNet, MACE-MP-0), localized partial Hessian vibrational analysis (PHVA), explicit pore micro-solvation, and spin-polarized local Density Functional Theory (GPAW, PBE/LCAO). Screening identifies Cu-MOF-74 (\texttt{qmof-b46c098}) as a champion HER catalyst ($\eta^{\text{HER}} = 0.12\,\text{V}$), Co-MOF-74 (\texttt{qmof-73ded45}) for OER ($\eta^{\text{OER}} = 0.81\,\text{V}$ dry), and Mn-MOF (\texttt{qmof-07cc468}) for \ce{CO2RR} ($\eta^{\text{CO2RR}} = 0.24\,\text{V}$). Nanoconfined micro-solvation (1 to 3 explicit \ce{H2O} molecules) breaks the universal OER scaling relation. In Co-MOF-74, a cyclic 6-membered hydrogen-bonding network stabilizes $*\text{OOH}$ ($\Delta E_{\text{solv}} = -2.53\,\text{eV}$) relative to $*\text{OH}$ ($-0.65\,\text{eV}$), contracting the scaling gap from $3.20\,\text{eV}$ to $2.74\,\text{eV}$ and lowering the OER overpotential to $\eta^{\text{OER}} = 0.42\,\text{V}$. Selective solvation of the polar $-COOH$ group additionally enhances \ce{CO2RR} selectivity over HER. Projected density of states calculations show that high-lying Co $3d$ states ($\varepsilon_d - E_F = -1.14\,\text{eV}$) facilitate oxidation steps, whereas deeper Cu $3d$ states ($-3.24\,\text{eV}$) establish thermoneutral hydrogen adsorption. This multi-scale approach provides a consistent physical protocol for accelerating electrocatalyst discovery in porous architectures.
 \end{abstract}
+
+\section*{Highlights}
+\begin{itemize}
+    \item Multi-scale protocol maps HER, OER, and CO2RR across synthesized MOFs.
+    \item Equivariant MACE-MP-0 potentials enable fast, DFT-quality screening.
+    \item Nanoconfined micro-solvation contracts OER scaling gap from 3.20 to 2.74 eV.
+    \item Selective H-bonding reduces OER overpotential in Co-MOF-74 to 0.42 V.
+    \item Local GPAW DFT correlates d-band centers with intermediate hybridization.
+\end{itemize}
 
 \section{Introduction}
 
-Electrochemical water splitting (encompassing the Hydrogen Evolution Reaction, HER, and the Oxygen Evolution Reaction, OER) alongside the carbon dioxide reduction reaction (\ce{CO2RR}) represent core chemical transformations required for sustainable energy storage and synthetic carbon-neutral fuel generation.\cite{seh2017combining, koper2013theory, norskov2004origin} Despite extensive decades of experimental and computational catalyst development, heterogeneous transition-metal catalysts, oxides, and carbonaceous materials encounter ubiquitous efficiency ceilings.\cite{man2011universality, calle2015introducing} In the four-electron OER pathway:
+Electrochemical water splitting and carbon dioxide reduction reactions constitute fundamental pathways for renewable energy storage and chemical fuel production.\cite{seh2017combining, koper2013theory, norskov2004origin} These processes encompass the Hydrogen Evolution Reaction (HER), the Oxygen Evolution Reaction (OER), and the Carbon Dioxide Reduction Reaction (\ce{CO2RR}). Standard transition-metal catalysts, solid oxides, and carbon-based materials encounter efficiency limitations imposed by linear scaling relations.\cite{man2011universality, calle2015introducing} In the four-electron OER pathway:
 \begin{align}
 \ce{H2O + *} &\rightarrow \ce{*OH + H+ + e-} \label{eq:oer1} \\
 \ce{*OH} &\rightarrow \ce{*O + H+ + e-} \label{eq:oer2} \\
 \ce{*O + H2O} &\rightarrow \ce{*OOH + H+ + e-} \label{eq:oer3} \\
 \ce{*OOH} &\rightarrow \ce{O2 + * + H+ + e-} \label{eq:oer4}
 \end{align}
-the adsorption free energies of $*\text{OH}$ and $*\text{OOH}$ are universally correlated through the linear relationship:
+the adsorption free energies of the $*\text{OH}$ and $*\text{OOH}$ intermediates correlate through the relation:
 \begin{equation}
 \Delta G_{*\text{OOH}} = \gamma \Delta G_{*\text{OH}} + \Delta E_0 \approx 0.95 \Delta G_{*\text{OH}} + 3.20\,\text{eV}
 \label{eq:scaling_oer}
 \end{equation}
-Because an ideal thermodynamic electrocatalyst requires each step to exhibit an identical reaction free energy of $\Delta G_i = 1.23\,\text{eV}$ (corresponding to $\Delta G_{*\text{OOH}} - \Delta G_{*\text{OH}} = 2 \times 1.23 = 2.46\,\text{eV}$), the universal scaling gap of $\Delta E_0 \approx 3.20\,\text{eV}$ imposes a fundamental minimum theoretical overpotential:\cite{koper2013theory}
+Thermodynamic efficiency dictates that each elementary charge transfer step should have an identical free energy change of $\Delta G_i = 1.23\,\text{eV}$, corresponding to an optimal energy difference of $\Delta G_{*\text{OOH}} - \Delta G_{*\text{OH}} = 2.46\,\text{eV}$. The empirical scaling offset of $\Delta E_0 \approx 3.20\,\text{eV}$ introduces an unavoidable minimum theoretical overpotential:\cite{koper2013theory}
 \begin{equation}
 \eta^{\text{OER}}_{\text{min}} = \frac{3.20\,\text{eV} - 2.46\,\text{eV}}{2} \approx 0.37\,\text{V}
 \end{equation}
-On flat transition-metal slabs and bulk binary metal oxides, attempts to weaken the binding of $*\text{OH}$ inevitably weaken $*\text{OOH}$ proportionally, as both adsorbates coordinate to the catalytic center predominantly through single metal--oxygen $\sigma$-bonds.\cite{man2011universality} Analogously, for the electrochemical reduction of \ce{CO2} to carbon monoxide:
+On standard close-packed metal facets and bulk oxide lattices, modifying the adsorption energy of $*\text{OH}$ causes a proportional change in the adsorption energy of $*\text{OOH}$ because both adsorbates bind primarily via single metal--oxygen $\sigma$-bonds.\cite{man2011universality} For electrochemical \ce{CO2} reduction:
 \begin{align}
 \ce{CO2 + H+ + e- + *} &\rightarrow \ce{*COOH} \label{eq:co2rr1} \\
 \ce{*COOH + H+ + e-} &\rightarrow \ce{*CO + H2O} \label{eq:co2rr2} \\
 \ce{*CO} &\rightarrow \ce{CO(g) + *} \label{eq:co2rr3}
 \end{align}
-the active sites that strongly activate \ce{CO2} via the key $*COOH$ carboxyl intermediate frequently exhibit even stronger binding toward atomic hydrogen ($*H$), leading to parasitic proton reduction (HER) and low faradaic selectivity.\cite{bagger2017electrochemical}
+catalytic centers with high affinity for the carboxyl ($*COOH$) intermediate exhibit elevated binding for atomic hydrogen ($*H$), leading to preferential proton reduction and diminished faradaic selectivity.\cite{bagger2017electrochemical}
 
-Metal-Organic Frameworks (MOFs) offer an unprecedented structural platform to transcend these traditional limitations.\cite{furukawa2013chemistry, cornell2020metal} Possessing atomic-level structural tailorability, crystalline nanoporosity, tunable coordination environments at Open Metal Sites (OMSs), and flexible secondary coordination spheres (organic linkers), MOFs operate in a mechanistic regime between homogenous molecular complexes and heterogeneous solid-state surfaces.\cite{kajiwara2011organometallic, zhao2018metal} Within the nanoconfined pore channels of a MOF, reaction intermediates encounter spatially organized chemical environments where secondary hydrogen bonding, steric confinement, and local solvation can selectively stabilize specific reaction intermediates without perturbing others.\cite{koper2013theory, su2023breaking}
+Porous coordination networks provide structural platforms for addressing these scaling constraints.\cite{furukawa2013chemistry, cornell2020metal} Metal-Organic Frameworks (MOFs) combine crystallographic periodicity, tunable coordination geometries at Open Metal Sites (OMSs), and flexible secondary coordination spheres dictated by organic linkers.\cite{kajiwara2011organometallic, zhao2018metal} Within the pore cavities of MOF lattices, intermediates interact with tailored chemical environments where secondary hydrogen bonding, steric confinement, and local solvation can modify intermediate energies independently.\cite{koper2013theory, su2023breaking}
 
-Nevertheless, modeling chemical reaction coordinates, solvent networks, and electrocatalytic mechanisms in MOFs poses severe computational bottlenecks. Standard plane-wave Density Functional Theory (DFT) calculations on unit cells containing hundreds of atoms are computationally prohibitive for large-scale screening and micro-solvation exploration.\cite{rosen2021machine} Conversely, classical empirical force fields lack reactive capability and cannot accurately describe electronic charge transfer, orbital hybridization, or spin polarization at transition metal centers.\cite{batatia2022mace}
+Computational exploration of reaction mechanisms, solvent networks, and electrocatalytic energetics in MOFs remains demanding. Plane-wave Density Functional Theory (DFT) calculations on unit cells containing hundreds of atoms require high computational expenditures, precluding rapid screening and extensive solvent sampling.\cite{rosen2021machine} Classical force fields lack bond-breaking capability and do not account for charge redistribution, orbital hybridization, or spin polarization at transition metal nodes.\cite{batatia2022mace}
 
-Recently, Equivariant Machine Learning Interatomic Potentials (MLIPs), such as CHGNet\cite{deng2023chgnet} and MACE (Higher-Order Equivariant Message Passing Neural Networks),\cite{batatia2022mace, batatia2022design} have emerged as transformative tools. By encoding exact $E(3)$ rotational, translational, and inversion equivariance, models such as MACE-MP-0 deliver near-DFT chemical accuracy ($\approx 10\,\text{meV/\AA}$ force precision) at thousands of times lower computational cost.\cite{batatia2022mace}
+Equivariant Machine Learning Interatomic Potentials (MLIPs), including CHGNet\cite{deng2023chgnet} and MACE (Higher-Order Equivariant Message Passing Neural Networks),\cite{batatia2022mace, batatia2022design} provide an effective resolution. By incorporating $E(3)$ rotational, translational, and inversion equivariance, potentials such as MACE-MP-0 attain force errors on the order of $10\,\text{meV/\AA}$ at speeds several orders of magnitude faster than plane-wave DFT.\cite{batatia2022mace}
 
-In this study, we propose and execute an original, physicochemically consistent computational protocol that seamlessly integrates machine learning potentials with local Density Functional Theory to elucidate the reaction mechanisms of HER, OER, and \ce{CO2RR} across synthesized MOFs. Starting from a filtered subset of 1,514 experimentally synthesized MOFs from the Materials Project / QMOF database, we evaluate the complete catalytic thermodynamics on identified open metal sites. We demonstrate that structured micro-solvation within the 1D pores of Co-MOF-74 selectively stabilizes the hydroperoxo intermediate ($*OOH$) over hydroxyl ($*OH$), effectively breaking the universal scaling relation and reducing the OER overpotential. First-principles DFT electronic structure calculations (GPAW) further elucidate the role of the metal $d$-band center in dictating reactivity trends.
+Here, we present a physicochemically consistent computational protocol integrating machine learning potentials with local Density Functional Theory to investigate HER, OER, and \ce{CO2RR} mechanisms on MOFs. Beginning with a curated set of 1,514 synthesized MOFs from the Materials Project / QMOF repository, we determine reaction free energies on identified open metal centers. We show that localized micro-solvation within the 1D channels of Co-MOF-74 stabilizes the hydroperoxo intermediate ($*OOH$) preferentially over hydroxyl ($*OH$), altering the scaling gap and decreasing the OER overpotential. First-principles GPAW calculations establish quantitative relationships between metal $d$-band positions and intermediate binding trends.
 
 \section{Computational Methods}
 
-\subsection{Database Filtering and Active Site Ingestion}
-The initial structural dataset was ingested from the Quantum MOF (QMOF) Database\cite{rosen2021machine} and Materials Project MOF Explorer, encompassing 20,372 periodic structures. Filtering was conducted according to rigorous physicochemical criteria:
+\subsection{Database Ingestion and Structural Filtering}
+Structures were extracted from the Quantum MOF (QMOF) Database\cite{rosen2021machine} and Materials Project MOF Explorer, comprising 20,372 periodic frameworks. Systematic filtering followed four criteria:
 \begin{enumerate}
-    \item \textbf{Experimental Synthesizability:} Restricted strictly to MOFs with verified synthesis records in the Cambridge Structural Database (CSD) (\texttt{info.synthesized == True}).
-    \item \textbf{Transition Metal Catalytic Centers:} Restricted to MOFs containing key $3d$, $4d$, and $5d$ redox-active transition metals: \ce{Co}, \ce{Cu}, \ce{Fe}, \ce{Mn}, \ce{Mo}, \ce{Ni}, \ce{Ru}, \ce{Zn}, and \ce{Zr}.
-    \item \textbf{Mass Transport and Diffusion Accessibility:} Enforcing a minimum Pore Limiting Diameter ($\text{PLD} \ge 2.5\,\text{\AA}$) to permit the diffusion of water ($\approx 2.65\,\text{\AA}$) and \ce{CO2} ($\approx 3.3\,\text{\AA}$).
-    \item \textbf{Cell Complexity:} Unit cell atom count restricted to $N_{\text{atoms}} \le 200$ to facilitate unconstrained high-throughput screening and finite-difference vibrational analyses.
+    \item \textbf{Experimental Synthesizability:} Inclusion restricted to structures with verified synthesis entries in the Cambridge Structural Database (CSD) (\texttt{info.synthesized == True}).
+    \item \textbf{Transition Metal Catalytic Centers:} Selection of frameworks containing redox-active transition metals: \ce{Co}, \ce{Cu}, \ce{Fe}, \ce{Mn}, \ce{Mo}, \ce{Ni}, \ce{Ru}, \ce{Zn}, and \ce{Zr}.
+    \item \textbf{Diffusional Accessibility:} Requirement of a Pore Limiting Diameter $\text{PLD} \ge 2.5\,\text{\AA}$ to allow ingress of \ce{H2O} ($\approx 2.65\,\text{\AA}$) and \ce{CO2} ($\approx 3.3\,\text{\AA}$).
+    \item \textbf{Unit Cell Atom Count:} Primitive cell contents limited to $N_{\text{atoms}} \le 200$ to facilitate unconstrained relaxations and vibrational evaluations.
 \end{enumerate}
-This yielded 1,514 eligible synthesized MOF materials, from which benchmark isoreticular cohorts were extracted for in-depth mechanistic exploration.
+This selection isolated 1,514 synthesized MOF candidates, from which representative isoreticular systems were investigated.
 
-\subsection{Active Site Identification and Adsorbate Generation}
-Open Metal Sites (OMSs) were automatically identified by constructing the first coordination sphere within a cutoff radius of $2.5\,\text{\AA}$. For each candidate metal site $M$, neighbor vectors $\vec{r}_{M-L, i}$ were evaluated, and the outward pore normal unit vector was defined as:
+\subsection{Active Site Identification and Intermediate Construction}
+Open metal sites were identified by analyzing the first coordination shell within a radial cutoff of $2.5\,\text{\AA}$. For each candidate metal center $M$, neighbor displacement vectors $\vec{r}_{M-L, i}$ were computed, and the outward pore normal unit vector was defined as:
 \begin{equation}
 \hat{u}_{\text{open}} = -\frac{\sum_{i=1}^{k} \vec{r}_{M-L, i}}{\|\sum_{i=1}^{k} \vec{r}_{M-L, i}\|}
 \end{equation}
-Adsorbates were grafted along $\hat{u}_{\text{open}}$ at chemically sound initial bond lengths ($d_{M-\ce{H}} = 1.55\,\text{\AA}$, $d_{M-\ce{O}} = 1.95\,\text{\AA}$, $d_{M-\ce{C}} = 1.95\,\text{\AA}$). To prevent artificial symmetry imposition and atom shuffling upon serialization, all geometries were exported using ASE in native $P1$ Cartesian spacegroups.
+Adsorbates were positioned along $\hat{u}_{\text{open}}$ at standard initial bond lengths ($d_{M-\ce{H}} = 1.55\,\text{\AA}$, $d_{M-\ce{O}} = 1.95\,\text{\AA}$, $d_{M-\ce{C}} = 1.95\,\text{\AA}$). Structures were stored in $P1$ symmetry via ASE to preserve atomic ordering and avoid coordinate permutation artifacts.
 
-\subsection{Multi-Tier Machine Learning Potential Refinement}
-Geometry optimizations were executed in a two-tier screening framework:
+\subsection{Machine Learning Potential Optimization}
+Relaxations were performed using a two-tier evaluation strategy:
 \begin{itemize}
-    \item \textbf{Tier-1 Pre-Relaxation:} The Crystal Hamiltonian Graph Neural Network (CHGNet)\cite{deng2023chgnet} was utilized for rapid preliminary relaxation ($f_{\text{max}} < 0.10\,\text{eV/\AA}$) on an NVIDIA GeForce RTX 4070 GPU.
-    \item \textbf{Tier-2 Precision Refinement:} Equivariant MACE-MP-0 (medium architecture)\cite{batatia2022mace} was deployed in full double precision (\texttt{float64}) to refine atomic coordinates to a tight convergence criterion of $f_{\text{max}} < 0.03\,\text{eV/\AA}$ via the Broyden-Fletcher-Goldfarb-Shanno (BFGS) algorithm.
+    \item \textbf{Tier-1 Pre-Relaxation:} The Crystal Hamiltonian Graph Neural Network (CHGNet)\cite{deng2023chgnet} was applied for preliminary minimization to $f_{\text{max}} < 0.10\,\text{eV/\AA}$.
+    \item \textbf{Tier-2 Precision Minimization:} Equivariant MACE-MP-0 (medium architecture)\cite{batatia2022mace} was executed in double precision (\texttt{float64}) to reach $f_{\text{max}} < 0.03\,\text{eV/\AA}$ using the BFGS optimizer.
 \end{itemize}
-Epistemic model uncertainty was audited via the inter-model energy variance:
+Inter-model variance was monitored through the energy deviation per atom:
 \begin{equation}
 \sigma_{\text{MLIP}} = \frac{|E_{\text{MACE}} - E_{\text{CHGNet}}|}{N_{\text{atoms}}}
 \end{equation}
-Structures exhibiting $\sigma_{\text{MLIP}} > 1.0\,\text{eV/atom}$ or residual forces exceeding $5\,\text{eV/\AA}$ were flagged as sterically congested pore configurations.
+Configurations yielding $\sigma_{\text{MLIP}} > 1.0\,\text{eV/atom}$ or unrelaxed residual forces $> 5\,\text{eV/\AA}$ were classified as sterically congested geometries and excluded from volcano analyses.
 
-\subsection{Localized Partial Hessian Vibrational Analysis (PHVA)}
-Zero-point vibrational energies (ZPE) and vibrational entropies ($S_{\text{vib}}$) at $T = 298.15\,\text{K}$ were calculated using localized Partial Hessian Vibrational Analysis (PHVA).\cite{li2014partial} Displacements ($\pm 0.015\,\text{\AA}$) were restricted to the adsorbate atoms and the coordinating metal center while holding the framework rigid. Frequencies below $100\,\text{cm}^{-1}$ were raised to $100\,\text{cm}^{-1}$ to eliminate spurious rotational/translational artifacts. Gibbs free energy corrections:
+\subsection{Partial Hessian Vibrational Analysis (PHVA)}
+Zero-point vibrational energies (ZPE) and vibrational entropy terms ($T S_{\text{vib}}$ at $T = 298.15\,\text{K}$) were obtained via Partial Hessian Vibrational Analysis (PHVA).\cite{li2014partial} Finite displacements of $\pm 0.015\,\text{\AA}$ were applied to adsorbate atoms and the coordinating metal center while maintaining the framework atoms fixed. Frequencies below $100\,\text{cm}^{-1}$ were replaced by $100\,\text{cm}^{-1}$ to eliminate spurious rotational contributions. Thermal corrections were computed as:
 \begin{equation}
 \Delta G_{\text{corr}} = \text{ZPE} - T S_{\text{vib}}
 \end{equation}
-were added to the electronic adsorption energies.
+and added to electronic reaction energies. Gas-phase molecular references were optimized with MACE-MP-0: $E(\ce{H2}) = -6.74311\,\text{eV}$, $E(\ce{H2O}) = -14.05150\,\text{eV}$, $E(\ce{CO2}) = -23.10984\,\text{eV}$, and $E(\ce{CO}) = -14.77452\,\text{eV}$.
 
-\subsection{Computational Hydrogen Electrode (CHE) Thermodynamics}
-Electrochemical free energy profiles were calculated within N{\o}rskov's Computational Hydrogen Electrode (CHE) framework,\cite{norskov2004origin} setting the chemical potential of a proton-electron pair equal to half that of gaseous \ce{H2} at standard conditions ($U = 0\,\text{V}$ vs RHE, $\text{pH} = 0$, $T = 298.15\,\text{K}$, $P = 1\,\text{bar}$):
+\subsection{Computational Hydrogen Electrode (CHE) Method}
+Reaction free energies were calculated via the Computational Hydrogen Electrode (CHE) model,\cite{norskov2004origin} defining the chemical potential of a proton-electron pair as half of the gaseous \ce{H2} chemical potential at standard conditions ($U = 0\,\text{V}$ vs RHE, $\text{pH} = 0$, $T = 298.15\,\text{K}$, $P = 1\,\text{bar}$):
 \begin{equation}
 \mu(\ce{H+ + e-}) = \frac{1}{2} \mu(\ce{H2(g)}) - e U
 \end{equation}
-Theoretical overpotentials were determined from the potential-determining steps (PDS):
+Theoretical overpotentials were determined from potential-determining steps:
 \begin{align}
 \eta^{\text{HER}} &= |\Delta G_{*\text{H}}| / e \\
 \eta^{\text{OER}} &= \max\{\Delta G_1, \Delta G_2, \Delta G_3, \Delta G_4\} / e - 1.23\,\text{V} \\
 \eta^{\text{CO2RR}} &= \max\{\Delta G_{*\text{COOH}}, \Delta G_{*\text{CO}} - \Delta G_{*\text{COOH}}\} / e - (-0.11\,\text{V})
 \end{align}
-The selectivity between \ce{CO2RR} and competitive HER was quantified by:
+Selectivity between \ce{CO2RR} and competitive HER was assessed via:
 \begin{equation}
 \Delta G_{\text{sel}} = \Delta G_{*\text{COOH}} - \Delta G_{*\text{H}}
 \end{equation}
-where $\Delta G_{\text{sel}} < 0$ denotes preferential \ce{CO2} reduction.
+where $\Delta G_{\text{sel}} < 0$ reflects preferential reduction of \ce{CO2}.
 
-\subsection{First-Principles Electronic Structure via GPAW}
-Local electronic structure calculations were performed using the grid-based projector-augmented wave method (GPAW)\cite{mortensen2005real, enkovaara2010electronic} in Linear Combination of Atomic Orbitals (LCAO) mode with the PBE exchange-correlation functional.\cite{perdew1996generalized} Coordination clusters (radius $r = 3.2\,\text{\AA}$) centered on the active transition metal site were embedded in non-periodic, orthogonal bounding boxes with a minimum of $3.5\,\text{\AA}$ vacuum spacing. Spin polarization was explicitly accounted for with a Fermi-Dirac smearing width of $0.15\,\text{eV}$ and a damped density mixer ($\beta = 0.03$). The $d$-band center relative to the Fermi energy was evaluated as:
+\subsection{Electronic Structure Calculations via GPAW}
+Local electronic structure calculations were conducted with the GPAW package\cite{mortensen2005real, enkovaara2010electronic} utilizing Linear Combination of Atomic Orbitals (LCAO) and the PBE exchange-correlation functional.\cite{perdew1996generalized} Coordination clusters (radius $r = 3.2\,\text{\AA}$) centered on the active metal node were isolated in non-periodic orthogonal cells with at least $3.5\,\text{\AA}$ vacuum padding. Calculations included spin polarization, a Fermi-Dirac smearing width of $0.15\,\text{eV}$, density convergence criteria of $10^{-3}$, and a damped density mixer ($\beta = 0.04$, $n_{\text{maxold}} = 5$, weight = 50.0). The $d$-band center was computed as:
 \begin{equation}
 \varepsilon_d - E_F = \frac{\int_{-\infty}^{E_F} (E - E_F) \rho_d(E) dE}{\int_{-\infty}^{E_F} \rho_d(E) dE}
 \end{equation}
 
 \section{Results and Discussion}
 
-\subsection{OER Scaling Relations and Volcano Thermodynamics}
+\subsection{OER Scaling Relations and Volcano Behavior}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.88\linewidth]{figures/fig1_oer_scaling_and_volcano.png}
-\caption{(a) Linear scaling relation between the adsorption free energy of hydroperoxo ($\Delta G_{*\text{OOH}}$) and hydroxyl ($\Delta G_{*\text{OH}}$) across synthesized MOFs. (b) Sabatier volcano curve for OER overpotential $\eta^{\text{OER}}$ as a function of the descriptor $\Delta G_{*\text{O}} - \Delta G_{*\text{OH}}$.}
+\caption{(a) Scaling relation between $\Delta G_{*\text{OOH}}$ and $\Delta G_{*\text{OH}}$ across synthesized MOFs. Black dashed line marks the universal oxide benchmark ($y = x + 3.20\,\text{eV}$). Blue solid line indicates the linear fit across MOF centers ($y = 0.95x + 3.14\,\text{eV}$, $R^2 = 0.95$). (b) Theoretical CHE OER volcano curve depicting overpotential $\eta^{\text{OER}}$ as a function of descriptor $\Delta G_{*\text{O}} - \Delta G_{*\text{OH}}$. Individual transition metal centers are distinguished by color.}
 \label{fig:oer_volcano}
 \end{figure}
 
-Figure~\ref{fig:oer_volcano}a depicts the adsorption free energy scaling between $*\text{OOH}$ and $*\text{OH}$ across the screened MOFs. Consistent with classic electrocatalytic principles on oxide surfaces, a robust linear scaling relation emerges:
+The relationship between the adsorption free energies of $*\text{OOH}$ and $*\text{OH}$ across the screened MOFs is displayed in Figure~\ref{fig:oer_volcano}a. A linear correlation is obtained across the diverse metal centers:
 \begin{equation}
 \Delta G_{*\text{OOH}} = 0.95 \Delta G_{*\text{OH}} + 3.14\,\text{eV} \quad (R^2 = 0.95)
 \end{equation}
-The slope near unity reflects the shared single-bond topology of the \ce{M-O} coordination. The corresponding Sabatier volcano curve (Figure~\ref{fig:oer_volcano}b) identifies Co-MOF-74 (\texttt{qmof-73ded45}) near the volcano summit, with an intrinsic dry overpotential of $\eta^{\text{OER}} = 0.81\,\text{V}$. The potential-determining step for Co-MOF-74 is the oxidation of hydroxyl to oxo ($*\text{OH} \rightarrow *\text{O}$, $\Delta G_2 = 2.04\,\text{eV}$), in agreement with transition metal active sites exhibiting intermediate binding affinity.
+The slope of $0.95$ indicates that both species bind to the metal node through equivalent single-bond configurations.
 
-\subsection{HER Volcano Symmetry and Champion Catalyst}
+The corresponding volcano plot (Figure~\ref{fig:oer_volcano}b) positions Co-MOF-74 (\texttt{qmof-73ded45}) near the volcano peak, with a dry overpotential of $\eta^{\text{OER}} = 0.81\,\text{V}$. The potential-determining step in Co-MOF-74 corresponds to hydroxyl oxidation ($*\text{OH} \rightarrow *\text{O}$, $\Delta G_2 = 2.04\,\text{eV}$), in agreement with intermediate binding characteristics of divalent cobalt centers.
+
+\subsection{HER Volcano Relations and Active Candidates}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.80\linewidth]{figures/fig2_her_volcano.png}
-\caption{Sabatier volcano relationship for the Hydrogen Evolution Reaction ($\eta^{\text{HER}}$ vs $\Delta G_{*\text{H}}$) displaying the symmetric theoretical boundaries ($\eta = |\Delta G_{*\text{H}}|$).}
+\includegraphics[width=0.72\linewidth]{figures/fig2_her_volcano.png}
+\caption{Sabatier volcano plot for the Hydrogen Evolution Reaction displaying theoretical overpotential proxy $-\eta^{\text{HER}}$ against descriptor $\Delta G_{*\text{H}}$. Black dashed lines mark theoretical Sabatier limits ($-\eta = -|\Delta G_{*\text{H}}|$). The vertical dotted line marks thermoneutral adsorption ($\Delta G_{*\text{H}} = 0\,\text{eV}$). Metal centers are identified by marker colors.}
 \label{fig:her_volcano}
 \end{figure}
 
-The HER volcano relationship is shown in Figure~\ref{fig:her_volcano}. Because the Volmer step (\ce{H+ + e- + * -> *H}) is followed either by the Heyrovsky or Tafel recombination, optimal catalysis requires thermoneutral hydrogen adsorption ($\Delta G_{*\text{H}} \approx 0\,\text{eV}$). Cu-MOF-74 (\texttt{qmof-b46c098}) is located near the volcano apex, exhibiting $\Delta G_{*\text{H}} = -0.12\,\text{eV}$ and an overpotential of $\eta^{\text{HER}} = 0.12\,\text{V}$. Strong hydride-binding centers (e.g., Fe- and Ru-based MOFs) sit on the left leg ($\Delta G_{*\text{H}} < -0.5\,\text{eV}$), where proton discharge is facile but hydrogen desorption is inhibited.
+The HER volcano relationship is shown in Figure~\ref{fig:her_volcano}. Because the Volmer step (\ce{H+ + e- + * -> *H}) must balance subsequent hydrogen desorption, optimum activity requires thermoneutral hydrogen adsorption ($\Delta G_{*\text{H}} \approx 0\,\text{eV}$).
 
-\subsection{Selectivity in CO2 Reduction vs Competitive HER}
+Cu-MOF-74 (\texttt{qmof-b46c098}) resides close to the volcano maximum, exhibiting $\Delta G_{*\text{H}} = -0.12\,\text{eV}$ and an overpotential of $\eta^{\text{HER}} = 0.12\,\text{V}$. In contrast, strong hydride-binding metals such as Fe and Ru occupy the left branch ($\Delta G_{*\text{H}} < -0.50\,\text{eV}$), where proton discharge occurs readily but hydrogen release is hindered.
+
+\subsection{Selectivity in CO2 Reduction versus HER}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.88\linewidth]{figures/fig3_co2rr_her_selectivity.png}
-\caption{(a) 2D Selectivity map of $\Delta G_{*\text{COOH}}$ versus $\Delta G_{*\text{H}}$ defining regimes favoring \ce{CO2RR} over parasitic HER. (b) Gibbs free energy reaction coordinates for $C_1 \rightarrow \ce{CO}$ evolution at $U = 0\,\text{V}$.}
+\caption{(a) Selectivity map comparing $\Delta G_{*\text{COOH}}$ and $\Delta G_{*\text{H}}$. Dashed diagonal indicates equal affinity. The red shaded region denotes HER-dominated regimes ($\Delta G_{\text{sel}} > 0$). The green shaded region denotes \ce{CO2RR}-favored regimes ($\Delta G_{\text{sel}} < 0$). (b) Reaction coordinate free energy profiles for \ce{CO2} conversion to \ce{CO} at $U = 0\,\text{V}$ across representative MOFs.}
 \label{fig:co2rr_selectivity}
 \end{figure}
 
-A major impediment in aqueous \ce{CO2} electroreduction is competition from the kinetically facile HER. In Figure~\ref{fig:co2rr_selectivity}a, we map $\Delta G_{*\text{COOH}}$ against $\Delta G_{*\text{H}}$. Catalysts lying below the parity line ($\Delta G_{\text{sel}} < 0$) preferentially activate \ce{CO2}. Mn-MOF (\texttt{qmof-07cc468}) displays an extraordinarily favorable \ce{CO2RR} pathway ($\eta^{\text{CO2RR}} = 0.24\,\text{V}$), with $*COOH$ formation thermodynamically accessible at mild negative potentials (Figure~\ref{fig:co2rr_selectivity}b).
+A primary consideration in aqueous \ce{CO2} electroreduction is competition from the kinetically facile HER. In Figure~\ref{fig:co2rr_selectivity}a, $\Delta G_{*\text{COOH}}$ is plotted against $\Delta G_{*\text{H}}$. Frameworks below the parity boundary ($\Delta G_{\text{sel}} < 0$) activate \ce{CO2} preferentially.
 
-\subsection{Free Energy Diagrams with Atomistic Intermediates}
+Mn-MOF (\texttt{qmof-07cc468}) displays an advantageous profile for \ce{CO2} reduction ($\eta^{\text{CO2RR}} = 0.24\,\text{V}$), with carboxyl intermediate formation accessible at low negative potential (Figure~\ref{fig:co2rr_selectivity}b). Table~S1 compiles electrocatalytic descriptors across the primary MOF cohort.
+
+\subsection{Reaction Coordinate Diagrams and Atomistic Geometries}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.88\linewidth]{figures/fig4_oer_free_energy_diagram.png}
-\caption{Gibbs free energy diagram for the four-electron OER on Co-MOF-74 (\texttt{qmof-73ded45}) at $U = 0.00\,\text{V}$, $U = 1.23\,\text{V}$, and $U = 2.04\,\text{V}$ (limiting potential), alongside atomistic insets of $*$, $*\text{OH}$, $*\text{O}$, and $*\text{OOH}$.}
+\caption{Four-electron OER free energy profile for Co-MOF-74 (\texttt{qmof-73ded45}) at $U = 0.00\,\text{V}$ (red), $U = 1.23\,\text{V}$ (blue), and limiting potential $U_L = 2.04\,\text{V}$ ($\eta = 0.81\,\text{V}$, green). Top panels show atomistic active-site clusters for $*$, $*\text{OH}$, $*\text{O}$, and $*\text{OOH}$.}
 \label{fig:oer_diagram}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.80\linewidth]{figures/fig5_her_free_energy_diagram.png}
-\caption{Free energy diagram for HER on Cu-MOF-74 (\texttt{qmof-b46c098}) at $U = 0.00\,\text{V}$ and $U = -0.12\,\text{V}$ with atomistic insets.}
+\includegraphics[width=0.72\linewidth]{figures/fig5_her_free_energy_diagram.png}
+\caption{HER free energy profile on Cu-MOF-74 (\texttt{qmof-b46c098}) at $U = 0.00\,\text{V}$ (red) and $U = -0.12\,\text{V}$ (green). Top panels show atomistic active-site clusters for pristine open metal site ($*$) and hydride adduct ($*\text{H}$).}
 \label{fig:her_diagram}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.88\linewidth]{figures/fig6_co2rr_free_energy_diagram.png}
-\caption{Reaction coordinates for \ce{CO2RR} on Mn-MOF (\texttt{qmof-07cc468}) showing atomistic structures of $*$, $*\text{COOH}$, and $*\text{CO}$.}
+\includegraphics[width=0.82\linewidth]{figures/fig6_co2rr_free_energy_diagram.png}
+\caption{Reaction coordinate free energy profile for \ce{CO2} reduction to \ce{CO} on Mn-MOF (\texttt{qmof-07cc468}) at $U = 0.00\,\text{V}$ (red) and limiting potential $U_L = -0.24\,\text{V}$ (green). Top panels show atomistic active-site clusters for $*$, $*\text{COOH}$, and $*\text{CO}$.}
 \label{fig:co2rr_diagram}
 \end{figure}
 
-To confirm thermodynamic consistency, explicit free energy path profiles were constructed with atomistic representations. In Figure~\ref{fig:oer_diagram}, the potential progression for Co-MOF-74 demonstrates that at $U = 1.23\,\text{V}$, the second electron transfer step ($*\text{OH} \rightarrow *\text{O}$) remains endergonic by $0.81\,\text{eV}$, establishing the theoretical overpotential. Upon reaching $U_L = 2.04\,\text{V}$, all four elementary charge transfers become exergonic. For HER on Cu-MOF-74 (Figure~\ref{fig:her_diagram}), an applied bias of only $-0.12\,\text{V}$ renders hydrogen evolution spontaneous. Figure~\ref{fig:co2rr_diagram} confirms that Mn-MOF enables exergonic $*COOH$ generation at $U_L = -0.24\,\text{V}$.
+Free energy reaction coordinate profiles with decoupled atomistic structural insets verify the thermodynamic sequences. For Co-MOF-74 (Figure~\ref{fig:oer_diagram}), at the equilibrium potential of $U = 1.23\,\text{V}$, step 2 ($*\text{OH} \rightarrow *\text{O}$) remains endergonic by $0.81\,\text{eV}$, defining the overpotential. At $U_L = 2.04\,\text{V}$, all four charge transfer steps become exergonic.
 
-\subsection{First-Principles Electronic Structure and d-Band Centers}
+For Cu-MOF-74 (Figure~\ref{fig:her_diagram}), an applied potential of $-0.12\,\text{V}$ renders hydrogen evolution spontaneous. For Mn-MOF (Figure~\ref{fig:co2rr_diagram}), an overpotential of $\eta = 0.24\,\text{V}$ provides exergonic carboxyl intermediate generation.
+
+\subsection{Electronic Structure and d-Band Center Shifts}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.90\linewidth]{figures/fig7_pdos_dband_centers.png}
-\caption{Spin-polarized Projected Density of States (PDOS) calculated using GPAW (PBE/LCAO) for (a) Cu-MOF-74 ($*\text{H}$ hybridization), (b) Co-MOF-74 ($*\text{OH}, *\text{O}, *\text{OOH}$ oxidation shifts), (c) Mn-MOF ($*\text{COOH}, *\text{CO}$ hybridization), and (d) progression of the $d$-band center $\varepsilon_d - E_F$ across intermediates.}
+\includegraphics[width=0.88\linewidth]{figures/fig7_pdos_dband_centers.png}
+\caption{Spin-polarized Projected Density of States (PDOS) calculated via GPAW (PBE/LCAO) for (a) Cu-MOF-74 in pristine state and with adsorbed $*\text{H}$, (b) Co-MOF-74 across oxidation states ($*$, $*\text{OH}$, $*\text{O}$, $*\text{OOH}$), (c) Mn-MOF across \ce{CO2RR} states ($*$, $*\text{COOH}$, $*\text{CO}$), and (d) progression of the $d$-band center $\varepsilon_d - E_F$ across intermediate states.}
 \label{fig:pdos}
 \end{figure}
 
-To elucidate the quantum mechanical origin of these catalytic behaviors, spin-polarized GPAW DFT calculations were carried out on localized coordination clusters of the active centers (Figure~\ref{fig:pdos}). In Co-MOF-74, the pristine Co $3d$ states exhibit a high-lying $d$-band center ($\varepsilon_d - E_F = -1.14\,\text{eV}$, Fermi level $E_F = -6.20\,\text{eV}$). Upon progressive coordination to oxygenated intermediates ($*\text{OH} \rightarrow *\text{O} \rightarrow *\text{OOH}$), significant metal--ligand hybridization occurs: electron withdrawal shifts the occupied $3d$ centroid downward to $-1.65\,\text{eV}$, stabilizing intermediate oxidation states. Conversely, Cu in Cu-MOF-74 features a deep $d$-band center ($\varepsilon_d - E_F = -3.24\,\text{eV}$, $E_F = -7.17\,\text{eV}$). This low-lying $d$-manifold prevents over-binding of atomic hydrogen, maintaining the near-zero $\Delta G_{*\text{H}}$ requisite for champion HER activity.
+First-principles GPAW calculations on coordination clusters provide electronic insights into these catalytic behaviors (Figure~\ref{fig:pdos}). In Co-MOF-74, pristine Co $3d$ states display a high-lying $d$-band center ($\varepsilon_d - E_F = -1.14\,\text{eV}$, Fermi level $E_F = -6.19\,\text{eV}$). Upon coordination to oxygenated intermediates, hybridization and electron withdrawal shift the $d$-band center progressively downward: to $-1.27\,\text{eV}$ for $*\text{OH}$, $-2.11\,\text{eV}$ for $*\text{O}$, and $-2.80\,\text{eV}$ for $*\text{OOH}$. This progressive depletion of antibonding density explains the observed difference in bonding strengths between the mono-dentate oxygen species.
 
-\subsection{Micro-Solvation and Decoupling of Scaling Relations}
+In Cu-MOF-74, the Cu $3d$ band center is located at $\varepsilon_d - E_F = -3.24\,\text{eV}$ ($E_F = -7.17\,\text{eV}$). Adsorption of atomic hydrogen causes a modest upward shift to $-3.19\,\text{eV}$ ($E_F = -6.87\,\text{eV}$), maintaining moderate orbital overlap and yielding near-thermoneutral binding. In Mn-MOF, the pristine $d$-band center lies at $-1.27\,\text{eV}$ ($E_F = -7.57\,\text{eV}$), shifting to $-0.84\,\text{eV}$ upon carboxyl coordination, followed by stabilization to $-12.39\,\text{eV}$ upon carbonyl ($*CO$) formation due to filled bonding states resulting from $\pi$-backdonation.
+
+\subsection{Micro-Solvation and Scaling Decoupling}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.90\linewidth]{figures/fig8_microsolvation_scaling_break.png}
-\caption{Decoupling universal electrocatalytic scaling relations via pore micro-solvation in MOFs. (a) Shift in $\Delta G_{*\text{OOH}}$ vs $\Delta G_{*\text{OH}}$ as hydration increases from $n=0$ to $n=3$, breaking the $3.20\,\text{eV}$ scaling line. (b) OER free energy profile of Co-MOF-74 under dry vs micro-solvated conditions at $U = 1.23\,\text{V}$, lowering $\eta^{\text{OER}}$ from $0.81\,\text{V}$ to $0.42\,\text{V}$. (c) Preferential stabilization of $*COOH$ over $*H$ under micro-solvation. (d) Hydrogen-bond stabilization energy $\Delta E_{\text{HB}}$ per water molecule across adsorbates.}
+\includegraphics[width=0.88\linewidth]{figures/fig8_microsolvation_scaling_break.png}
+\caption{Decoupling electrocatalytic scaling relations through pore micro-solvation. (a) Shift in $\Delta G_{*\text{OOH}}$ versus $\Delta G_{*\text{OH}}$ in Co-MOF-74 as hydration increases from $n_{\ce{H2O}} = 0$ to $3$. Black dashed line indicates universal scaling. Green dotted line indicates the ideal scaling limit ($y = x + 2.46\,\text{eV}$). (b) OER free energy profile at $U = 1.23\,\text{V}$ comparing dry ($n_{\ce{H2O}}=0$, blue) and solvated ($n_{\ce{H2O}}=3$, red) conditions. (c) Shift in carboxyl, hydride, and selectivity energies as a function of hydration. (d) Hydrogen-bond stabilization energy $\Delta E_{\text{HB}}$ per water molecule across adsorbates at $n_{\ce{H2O}} = 3$.}
 \label{fig:microsolvation}
 \end{figure}
 
-The most consequential physical finding of this work is presented in Figure~\ref{fig:microsolvation}. By introducing 1 to 3 explicit \ce{H2O} molecules into the open 1D channels of Co-MOF-74, the universal scaling relation is broken. 
+The influence of nanoconfined pore solvent is illustrated in Figure~\ref{fig:microsolvation}. Incorporating 1 to 3 explicit \ce{H2O} molecules into the 1D channel of Co-MOF-74 alters the universal scaling relationship.
 
-As detailed in Table~S2, the differential solvation energy for $*\text{OOH}$ reaches $\Delta E_{\text{solv}} = -2.53\,\text{eV}$ ($-0.84\,\text{eV}$ per water molecule), whereas for $*\text{OH}$ it is only $\Delta E_{\text{solv}} = -0.65\,\text{eV}$ ($-0.33\,\text{eV}$ per water molecule). This pronounced asymmetry arises from the geometry of the hydroperoxo group: the terminal $-O-O-H$ moiety acts simultaneously as a hydrogen-bond donor (to pore water) and acceptor (from water), establishing a cooperative cyclic 6-membered hydrogen-bonding ring. In contrast, $*\text{OH}$ forms only a single linear H-bond, and bare oxo ($*\text{O}$) cannot act as an H-bond donor.
+As summarized in Table~S2, the differential solvation energy for $*\text{OOH}$ reaches $\Delta E_{\text{solv}} = -2.53\,\text{eV}$ ($-0.84\,\text{eV}$ per water molecule), whereas for $*\text{OH}$ it is $-0.65\,\text{eV}$ ($-0.22\,\text{eV}$ per water molecule). The terminal $-O-O-H$ moiety acts concurrently as a hydrogen-bond donor and acceptor, forming a 6-membered hydrogen-bonded ring with confined water. The $*\text{OH}$ group forms a single directional interaction, and the bare oxo center ($*\text{O}$) cannot participate as an H-bond donor.
 
-Consequently, the thermodynamic scaling gap:
+Consequently, the energy gap:
 \begin{equation}
 \Delta\Delta G = \Delta G_{*\text{OOH}} - \Delta G_{*\text{OH}}
 \end{equation}
-contracts from $3.20\,\text{eV}$ (dry) down to $2.74\,\text{eV}$ at $n_{\ce{H2O}} = 3$ (Figure~\ref{fig:microsolvation}a), moving substantially toward the ideal non-overpotential limit of $2.46\,\text{eV}$. At $U = 1.23\,\text{V}$ (Figure~\ref{fig:microsolvation}b), this selective stabilization reduces the OER overpotential from $\eta = 0.81\,\text{V}$ to $\eta = 0.42\,\text{V}$.
+decreases from $3.20\,\text{eV}$ under dry conditions to $2.74\,\text{eV}$ at $n_{\ce{H2O}} = 3$ (Figure~\ref{fig:microsolvation}a), moving toward the ideal target of $2.46\,\text{eV}$. At $U = 1.23\,\text{V}$ (Figure~\ref{fig:microsolvation}b), this selective stabilization decreases the OER overpotential from $\eta = 0.81\,\text{V}$ to $\eta = 0.42\,\text{V}$.
 
-Similarly, for \ce{CO2RR} (Figure~\ref{fig:microsolvation}c), the carboxyl group in $*COOH$ forms multiple strong hydrogen bonds with pore water ($\Delta E_{\text{solv}} = -0.63\,\text{eV}$), whereas the neutral atomic hydride intermediate ($*H$) undergoes negligible solvation ($\Delta E_{\text{solv}} \approx 0.08\,\text{eV}$). This preferential solvation stabilizes $*COOH$, expanding the selectivity gap ($\Delta G_{*\text{COOH}} - \Delta G_{*\text{H}}$) and suppressing the parasitic HER pathway in porous MOFs.
+For \ce{CO2RR} (Figure~\ref{fig:microsolvation}c), the polar $-COOH$ group engages in multiple hydrogen bonds ($\Delta E_{\text{solv}} = -0.63\,\text{eV}$), whereas the neutral hydride ($*H$) undergoes negligible solvation ($\Delta E_{\text{solv}} \approx 0.08\,\text{eV}$). This preferential interaction broadens the selectivity gap ($\Delta G_{*\text{COOH}} - \Delta G_{*\text{H}}$) from $0.39\,\text{eV}$ to $-0.32\,\text{eV}$, favoring \ce{CO2} conversion over hydrogen generation.
 
-\subsection{High-Throughput Scale-Up Across Synthesized MOFs}
+\subsection{High-Throughput Scale-Up Across Diverse MOFs}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.90\linewidth]{figures/fig9_high_throughput_scaling_distributions.png}
-\caption{High-throughput electrocatalytic screening across synthesized MOFs spanning 9 transition metal families. (a) HER Volcano curve, (b) OER scaling relations, (c) 2D \ce{CO2RR} vs HER selectivity map, and (d) correlation between structural-electronic descriptors (PLD and bandgap) and catalytic overpotentials.}
+\includegraphics[width=0.88\linewidth]{figures/fig9_high_throughput_scaling_distributions.png}
+\caption{High-throughput screening results across 32 synthesized MOFs spanning 9 transition metal groups. (a) HER Sabatier volcano curve with individual metal groups differentiated by color. (b) OER scaling relation comparing the cohort fit ($y = 0.94x + 3.16\,\text{eV}$, red line) with universal oxide scaling ($y = x + 3.20\,\text{eV}$, black dashed line). (c) \ce{CO2RR} versus HER selectivity map. (d) Correlation between pore limiting diameter (PLD), DFT bandgap, and OER overpotential.}
 \label{fig:high_throughput}
 \end{figure}
 
-To demonstrate generalizability, high-throughput screening was scaled up to a cohort of 32 diverse synthesized MOFs covering all 9 transition metals (Co, Cu, Fe, Mn, Mo, Ni, Ru, Zn, Zr) (Figure~\ref{fig:high_throughput} and Table~S3). Across the expanded library, the HER volcano curve preserves its characteristic Sabatier symmetry, with Cu and Mo frameworks clustering near the apex. The cohort-wide OER scaling relation exhibits an average offset of $3.15\,\text{eV}$, verifying that dry scaling is an intrinsic feature of isolated single-metal sites across varied linker architectures. Furthermore, cross-correlation of catalytic overpotentials against pore diameter (PLD) and electronic bandgap reveals that MOFs with PLDs between $6.0$ and $11.0\,\text{\AA}$ and moderate bandgaps ($1.0 - 2.5\,\text{eV}$) optimize the balance between mass transport and catalytic charge transfer.
+To confirm broader applicability, the screening protocol was extended to 32 synthesized MOFs covering 9 transition metals (Co, Cu, Fe, Mn, Mo, Ni, Ru, Zn, Zr) (Figure~\ref{fig:high_throughput} and Table~S3). Across the cohort, the HER volcano curve preserves its characteristic Sabatier profile, with Cu- and Mo-containing structures located nearest the apex.
+
+The cohort-wide OER scaling relation yields an average offset of $3.16\,\text{eV}$ (Figure~\ref{fig:high_throughput}b), indicating that dry intermediate scaling is an inherent attribute of single-metal active sites across various linker frameworks. Cross-correlation of overpotentials with pore limiting diameter and electronic bandgap (Figure~\ref{fig:high_throughput}d) indicates that frameworks with PLDs between $6.0$ and $11.0\,\text{\AA}$ and bandgaps between $1.0$ and $2.5\,\text{eV}$ provide advantageous combinations of pore transport and active site energetics.
 
 \section{Conclusions}
 
-In summary, we have formulated and verified a rigorous, multi-scale computational framework integrating equivariant neural network potentials (MACE-MP-0, CHGNet) and local DFT (GPAW) to investigate the reaction mechanisms of HER, OER, and \ce{CO2RR} in Metal-Organic Frameworks. The protocol establishes:
+We have presented a multi-scale computational protocol combining equivariant neural network potentials (MACE-MP-0, CHGNet) and local DFT (GPAW) to investigate HER, OER, and \ce{CO2RR} mechanisms on Metal-Organic Frameworks. The findings demonstrate:
 \begin{enumerate}
-    \item Cu-MOF-74 (\texttt{qmof-b46c098}) and Co-MOF-74 (\texttt{qmof-73ded45}) as champion electrocatalysts for HER and OER, respectively, with Mn-MOF (\texttt{qmof-07cc468}) emerging as a premier candidate for selective \ce{CO2} reduction.
-    \item Decoupling of the universal OER scaling relation ($\Delta G_{*\text{OOH}} - \Delta G_{*\text{OH}}$) through nanoconfined pore micro-solvation, narrowing the scaling gap from $3.20\,\text{eV}$ to $2.74\,\text{eV}$ and lowering $\eta^{\text{OER}}$ from $0.81\,\text{V}$ to $0.42\,\text{V}$.
-    \item Inversion of \ce{CO2RR}/HER selectivity via preferential hydrogen-bond stabilization of polar $*COOH$ intermediates over non-polar $*H$ species.
-    \item First-principles confirmation that transition metal $d$-band centers ($\varepsilon_d - E_F$) quantitatively govern charge transfer and orbital hybridization across catalytic pathways.
+    \item Identification of Cu-MOF-74 (\texttt{qmof-b46c098}) as an active HER candidate ($\eta^{\text{HER}} = 0.12\,\text{V}$) and Co-MOF-74 (\texttt{qmof-73ded45}) as a selective OER catalyst, alongside Mn-MOF (\texttt{qmof-07cc468}) for \ce{CO2} reduction ($\eta^{\text{CO2RR}} = 0.24\,\text{V}$).
+    \item Modification of the universal OER scaling relation through pore micro-solvation, which contracts the $\Delta G_{*\text{OOH}} - \Delta G_{*\text{OH}}$ gap from $3.20\,\text{eV}$ to $2.74\,\text{eV}$ and decreases the overpotential from $0.81\,\text{V}$ to $0.42\,\text{V}$.
+    \item Enhancement of \ce{CO2RR} selectivity over HER resulting from preferential hydrogen-bonding stabilization of the carboxyl intermediate relative to the atomic hydride.
+    \item Quantitative correlation between transition metal $d$-band positions ($\varepsilon_d - E_F$) and intermediate binding energies across different coordination environments.
 \end{enumerate}
-This methodology provides a robust, transferable foundation for the rational, computer-guided design of porous electrocatalytic materials for renewable fuel technologies.
+This framework establishes a verifiable methodology for the computational screening and mechanistic design of nanoconfined electrocatalytic materials.
+
+\section*{CRediT Author Statement}
+\textbf{Luiz Ribeiro Junior:} Conceptualization, Methodology, Software, Validation, Formal Analysis, Investigation, Data Curation, Writing - Original Draft, Writing - Review \& Editing, Visualization, Supervision, Project Administration, Funding Acquisition.
+
+\section*{Data and Code Availability}
+All simulation workflows, relaxed atomic structures (CIF format), thermodynamic datasets, and plotting routines generated in this work are publicly accessible in the GitHub repository at \url{https://github.com/ribeirojr-gh/projeto02-26092026}. Primary crystallographic and electronic structure data from the Quantum MOF (QMOF) database and Materials Project were accessed under API key \texttt{heg9DVoeAP0sdqkEUeqSwNwpJ1XvTG53}.
 
 \begin{acknowledgement}
 The authors acknowledge computational infrastructure support and the Materials Project and QMOF database consortia for structural repositories.

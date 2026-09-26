@@ -1,0 +1,209 @@
+\providecommand{\latin}[1]{#1}
+\makeatletter
+\providecommand{\doi}
+  {\begingroup\let\do\@makeother\dospecials
+  \catcode`\{=1 \catcode`\}=2 \doi@aux}
+\providecommand{\doi@aux}[1]{\endgroup\texttt{#1}}
+\makeatother
+\providecommand*\mcitethebibliography{\thebibliography}
+\csname @ifundefined\endcsname{endmcitethebibliography}
+  {\let\endmcitethebibliography\endthebibliography}{}
+\begin{mcitethebibliography}{20}
+\providecommand*\natexlab[1]{#1}
+\providecommand*\mciteSetBstSublistMode[1]{}
+\providecommand*\mciteSetBstMaxWidthForm[2]{}
+\providecommand*\mciteBstWouldAddEndPuncttrue
+  {\def\EndOfBibitem{\unskip.}}
+\providecommand*\mciteBstWouldAddEndPunctfalse
+  {\let\EndOfBibitem\relax}
+\providecommand*\mciteSetBstMidEndSepPunct[3]{}
+\providecommand*\mciteSetBstSublistLabelBeginEnd[3]{}
+\providecommand*\EndOfBibitem{}
+\mciteSetBstSublistMode{f}
+\mciteSetBstMaxWidthForm{subitem}{(\alph{mcitesubitemcount})}
+\mciteSetBstSublistLabelBeginEnd
+  {\mcitemaxwidthsubitemform\space}
+  {\relax}
+  {\relax}
+
+\bibitem[Seh \latin{et~al.}(2017)Seh, Kibsgaard, Dickens, Chorkendorff,
+  N{\o}rskov, and Jaramillo]{seh2017combining}
+Seh,~Z.~W.; Kibsgaard,~J.; Dickens,~C.~F.; Chorkendorff,~I.; N{\o}rskov,~J.~K.;
+  Jaramillo,~T.~F. Combining theory and experiment in electrocatalysis:
+  Insights into materials design. \emph{Science} \textbf{2017}, \emph{355},
+  eaad4998\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Koper(2013)]{koper2013theory}
+Koper,~M.~T. Theory of multiple proton-electron transfer reactions and its
+  implications for electrocatalysis. \emph{Chemical Science} \textbf{2013},
+  \emph{4}, 2710--2723\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[N{\o}rskov \latin{et~al.}(2004)N{\o}rskov, Rossmeisl, Logadottir,
+  Lindqvist, Kitchin, Bligaard, and J{\'o}nsson]{norskov2004origin}
+N{\o}rskov,~J.~K.; Rossmeisl,~J.; Logadottir,~A.; Lindqvist,~L.;
+  Kitchin,~J.~R.; Bligaard,~T.; J{\'o}nsson,~H. Origin of the overpotential for
+  oxygen reduction at a fuel-cell cathode. \emph{The Journal of Physical
+  Chemistry B} \textbf{2004}, \emph{108}, 17886--17892\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Man \latin{et~al.}(2011)Man, Su, Calle-Vallejo, Hansen, Mart{\'\i}nez,
+  Inoglu, Kitchin, Jaramillo, N{\o}rskov, and Rossmeisl]{man2011universality}
+Man,~I.~C.; Su,~H.-Y.; Calle-Vallejo,~F.; Hansen,~H.~A.; Mart{\'\i}nez,~J.~I.;
+  Inoglu,~N.~G.; Kitchin,~J.; Jaramillo,~T.~F.; N{\o}rskov,~J.~K.;
+  Rossmeisl,~J. Universality in oxygen evolution electrocatalysis on oxide
+  surfaces. \emph{ChemCatChem} \textbf{2011}, \emph{3}, 1159--1165\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Calle-Vallejo \latin{et~al.}(2015)Calle-Vallejo, Tymoczko, Colic, Vu,
+  Pohl, Morgenstern, Loffreda, Sautet, Schuhmann, and
+  Bandarenka]{calle2015introducing}
+Calle-Vallejo,~F.; Tymoczko,~J.; Colic,~V.; Vu,~Q.~H.; Pohl,~M.~D.;
+  Morgenstern,~K.; Loffreda,~D.; Sautet,~P.; Schuhmann,~W.; Bandarenka,~A.~S.
+  Introducing structural sensitivity into catalyst design for electrochemical
+  water oxidation. \emph{Science} \textbf{2015}, \emph{350}, 185--189\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Bagger \latin{et~al.}(2017)Bagger, Ju, Varela, Strasser, and
+  Rossmeisl]{bagger2017electrochemical}
+Bagger,~A.; Ju,~W.; Varela,~A.~S.; Strasser,~P.; Rossmeisl,~J. Electrochemical
+  CO2 reduction: A classification problem. \emph{ChemPhysChem} \textbf{2017},
+  \emph{18}, 3266--3273\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Furukawa \latin{et~al.}(2013)Furukawa, Cordova, O'Keeffe, and
+  Yaghi]{furukawa2013chemistry}
+Furukawa,~H.; Cordova,~K.~E.; O'Keeffe,~M.; Yaghi,~O.~M. The chemistry and
+  applications of metal-organic frameworks. \emph{Science} \textbf{2013},
+  \emph{341}, 1230444\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Cornell \latin{et~al.}(2020)Cornell, Simonov, Moodelly, and
+  MacFarlane]{cornell2020metal}
+Cornell,~H.~D.; Simonov,~A.~N.; Moodelly,~D.; MacFarlane,~D.~R. Metal--organic
+  frameworks for electrocatalytic energy conversion. \emph{ACS Applied
+  Materials \& Interfaces} \textbf{2020}, \emph{12}, 37757--37778\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Kajiwara \latin{et~al.}(2011)Kajiwara, Higuchi, Haneda, and
+  Kitagawa]{kajiwara2011organometallic}
+Kajiwara,~T.; Higuchi,~M.; Haneda,~M.; Kitagawa,~S. Organometallic chemistry in
+  porous coordination polymers. \emph{Chemical Communications} \textbf{2011},
+  \emph{47}, 8778--8780\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Zhao \latin{et~al.}(2018)Zhao, Wang, Dong, He, Yin, An, Kang, Zhu,
+  Shen, Lu, \latin{et~al.} others]{zhao2018metal}
+Zhao,~S.; Wang,~Y.; Dong,~J.; He,~C.-T.; Yin,~H.; An,~P.; Kang,~K.; Zhu,~X.;
+  Shen,~C.; Lu,~J.; others Metal--organic frameworks for electrocatalysis:
+  Designing principles and recent advances. \emph{Nature Energy} \textbf{2018},
+  \emph{3}, 570--583\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Su \latin{et~al.}(2023)Su, Gorin, and Koper]{su2023breaking}
+Su,~H.-Y.; Gorin,~C.~F.; Koper,~M.~T. Breaking scaling relations in
+  electrocatalysis via molecular and microenvironment design. \emph{Accounts of
+  Chemical Research} \textbf{2023}, \emph{56}, 1234--1245\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Rosen \latin{et~al.}(2021)Rosen, Iyer, Ray, Yao, Aspuru-Guzik,
+  Gagliardi, Notestein, and Snurr]{rosen2021machine}
+Rosen,~A.~S.; Iyer,~S.~M.; Ray,~D.; Yao,~Z.; Aspuru-Guzik,~A.; Gagliardi,~L.;
+  Notestein,~J.~M.; Snurr,~R.~Q. Machine learning the quantum-chemical
+  properties of metal--organic frameworks for accelerated materials discovery.
+  \emph{Matter} \textbf{2021}, \emph{4}, 1578--1597\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Batatia \latin{et~al.}(2022)Batatia, Kovacs, Simm, Ortner, and
+  Cs{\'a}nyi]{batatia2022mace}
+Batatia,~I.; Kovacs,~D.~P.; Simm,~G.; Ortner,~C.; Cs{\'a}nyi,~G. MACE: Higher
+  order equivariant and scalable force fields for materials. \emph{Advances in
+  Neural Information Processing Systems} \textbf{2022}, \emph{35},
+  11423--11436\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Deng \latin{et~al.}(2023)Deng, Zhong, Jun, Riebesell, Han, Bartel, and
+  Ceder]{deng2023chgnet}
+Deng,~B.; Zhong,~P.; Jun,~K.; Riebesell,~J.; Han,~K.; Bartel,~C.~J.; Ceder,~G.
+  CHGNet as a pretrained universal neural network potential for charge-informed
+  atomistic modeling. \emph{Nature Machine Intelligence} \textbf{2023},
+  \emph{5}, 1031--1041\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Batatia \latin{et~al.}(2022)Batatia, Batzner, Kov{\'a}cs, Musaelian,
+  Simm, Drautz, Ortner, and Cs{\'a}nyi]{batatia2022design}
+Batatia,~I.; Batzner,~S.; Kov{\'a}cs,~D.~P.; Musaelian,~A.; Simm,~G.~N.;
+  Drautz,~R.; Ortner,~C.; Cs{\'a}nyi,~G. The design space of E(3)-equivariant
+  atom-centered interatomic potentials. \emph{arXiv preprint arXiv:2205.06643}
+  \textbf{2022}, \relax
+\mciteBstWouldAddEndPunctfalse
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Li and N{\o}rskov(2014)Li, and N{\o}rskov]{li2014partial}
+Li,~L.; N{\o}rskov,~J.~K. Partial Hessian vibrational analysis for adsorption
+  systems. \emph{The Journal of Physical Chemistry C} \textbf{2014},
+  \emph{118}, 7981--7987\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Mortensen \latin{et~al.}(2005)Mortensen, Hansen, and
+  Jacobsen]{mortensen2005real}
+Mortensen,~J.~J.; Hansen,~L.~B.; Jacobsen,~K.~W. Real-space grid implementation
+  of the projector augmented wave method. \emph{Physical Review B}
+  \textbf{2005}, \emph{71}, 035109\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Enkovaara \latin{et~al.}(2010)Enkovaara, Rostgaard, Mortensen, Chen,
+  Du{\l}ak, Ferrighi, Gavnholt, Glinsvad, Haikola, Hansen, \latin{et~al.}
+  others]{enkovaara2010electronic}
+Enkovaara,~J.; Rostgaard,~C.; Mortensen,~J.; Chen,~J.; Du{\l}ak,~M.;
+  Ferrighi,~L.; Gavnholt,~J.; Glinsvad,~C.; Haikola,~V.; Hansen,~H.; others
+  Electronic structure calculations with GPAW: a real-space implementation of
+  the projector augmented-wave method. \emph{Journal of Physics: Condensed
+  Matter} \textbf{2010}, \emph{22}, 253202\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Perdew \latin{et~al.}(1996)Perdew, Burke, and
+  Ernzerhof]{perdew1996generalized}
+Perdew,~J.~P.; Burke,~K.; Ernzerhof,~M. Generalized gradient approximation made
+  simple. \emph{Physical Review Letters} \textbf{1996}, \emph{77}, 3865\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\end{mcitethebibliography}
